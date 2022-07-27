@@ -1,0 +1,16 @@
+<aspectj>
+	<aspects>
+		<concrete-aspect name="com.maintainj.inst.J2SEAspect" extends="com.maintainj.aspect.J2SEExecutionDataAspect">
+			<pointcut name="anyExecution" expression="execution(public  * *.*(..)) || execution(public  *.new(..))"/>
+			<pointcut name="beforeMain" expression="execution(public static void net.sf.jabref.JabRefMain.main(String[])) || execution(public static void net.sf.jabref.JabRefMain.main(String...))"/>
+		</concrete-aspect>
+	</aspects>
+	<weaver options="-proceedOnError -nowarn -XaddSerialVersionUID  -Xset:makeTjpFieldsTransient=true -Xset:avoidFinal=true">
+		<include within="net.sf.jabref.model.database..*"/>
+		<include within="net.sf.jabref.model.entry..*"/>
+		<include within="net.sf.jabref.JabRefMain"/>
+		<exclude within="*ObjectFactory"/>
+		<exclude within="*..*CGLIB*"/>
+		<exclude within="com.maintainj..*"/>
+	</weaver>
+</aspectj>
