@@ -11,6 +11,7 @@ import java.util.function.Predicate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+import java.time.LocalDate;
 
 import net.sf.jabref.BibDatabaseContext;
 import net.sf.jabref.Globals;
@@ -203,7 +204,7 @@ public class IntegrityCheck {
             }
 
             // metaphor: integer-based stack (push + / pop -)
-            int counter = 0;
+            int counter = 0;	
             for (char a : value.get().trim().toCharArray()) {
                 if (a == '{') {
                     counter++;
@@ -282,6 +283,17 @@ public class IntegrityCheck {
 
             if (!CONTAINS_FOUR_DIGIT.test(value.get().trim())) {
                 return Collections.singletonList(new IntegrityMessage(Localization.lang("should contain a four digit number"), entry, "year"));
+            }
+            
+            
+            int date = Integer.parseInt(value.get().trim());
+            // validando ano positivo
+            if(date <= 0) {
+            	Collections.singletonList(new IntegrityMessage(Localization.lang("should be a positive year"), entry, "year"));
+            }
+            //validando ano futuro
+            if(date > LocalDate.now().getYear()) {
+            	Collections.singletonList(new IntegrityMessage(Localization.lang("shouldn't be on the future"), entry, "year"));
             }
 
             return Collections.emptyList();
