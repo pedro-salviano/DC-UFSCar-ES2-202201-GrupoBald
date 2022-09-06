@@ -65,7 +65,7 @@ public class IntegrityCheck {
         result.addAll(new BibStringChecker().check(entry));
         result.addAll(new HTMLCharacterChecker().check(entry));
         result.addAll(new ISSNChecker().check(entry));
-
+        result.addAll(new BibTexKeyChecker().check(entry));
         return result;
     }
 
@@ -391,5 +391,25 @@ public class IntegrityCheck {
             return results;
         }
     }
+    
+    private static class BibTexKeyChecker implements Checker {
+    	
+    	private static final Predicate<String> STARTS_WITH_LETTER = Pattern.compile("([a-z A-Z]) ([^\\s])").asPredicate();
+    	
+    	@Override
+    	public List<IntegrityMessage> check(BibEntry entry) {
+    		String value = entry.getCiteKey();
+    		
+    		if(value.length() < 2) {
+    			return Collections.singletonList(new IntegrityMessage(Localization.lang("should be at least two caracters long"), entry), "bibtexkey"));
+    		}
+    		
+    		if(!STARTS_WITH_LETTER.test(value)) {
+    			return Collections.singletonList(new IntegrityMessage(Localization.lang("should start with letter"), entry), "bibtexkey"));
+    		}
+    	}
+    	return Collections.emptyList();
+    }
+    
 
 }
