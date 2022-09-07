@@ -392,23 +392,28 @@ public class IntegrityCheck {
         }
     }
     
-    private static class BibTexKeyChecker implements Checker {
-    	
-    	private static final Predicate<String> STARTS_WITH_LETTER = Pattern.compile("([a-z A-Z]) ([^\\s])").asPredicate();
-    	
-    	@Override
-    	public List<IntegrityMessage> check(BibEntry entry) {
-    		String value = entry.getCiteKey();
-    		
-    		if(value.length() < 2) {
-    			return Collections.singletonList(new IntegrityMessage(Localization.lang("should be at least two caracters long"), entry), "bibtexkey"));
-    		}
-    		
-    		if(!STARTS_WITH_LETTER.test(value)) {
-    			return Collections.singletonList(new IntegrityMessage(Localization.lang("should start with letter"), entry), "bibtexkey"));
-    		}
-    	}
-    	return Collections.emptyList();
+     private static class BibTexKeyChecker implements Checker {
+
+        private static final Predicate<String> STARTS_WITH_LETTER = Pattern.compile("([a-z A-Z]) ([^\\s])")
+                .asPredicate();
+
+        @Override
+        public List<IntegrityMessage> check(BibEntry entry) {
+            String value = entry.getCiteKey();
+
+            if (entry != null) {
+                if(value.length() < 2) {
+                    return Collections.singletonList(new IntegrityMessage(
+                            Localization.lang("should be at least two caracters long"), entry, "bibtexkey"));
+                }
+                if(!STARTS_WITH_LETTER.test(value)) {
+                    return Collections.singletonList(
+                            new IntegrityMessage(Localization.lang("should start with letter"), entry, "bibtexkey"));
+                }
+            }
+
+            return Collections.emptyList();
+        }
     }
     
 
