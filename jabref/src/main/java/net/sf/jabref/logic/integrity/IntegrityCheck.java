@@ -204,7 +204,7 @@ public class IntegrityCheck {
             }
 
             // metaphor: integer-based stack (push + / pop -)
-            int counter = 0;	
+            int counter = 0;
             for (char a : value.get().trim().toCharArray()) {
                 if (a == '{') {
                     counter++;
@@ -284,16 +284,16 @@ public class IntegrityCheck {
             if (!CONTAINS_FOUR_DIGIT.test(value.get().trim())) {
                 return Collections.singletonList(new IntegrityMessage(Localization.lang("should contain a four digit number"), entry, "year"));
             }
-            
-            
             int date = Integer.parseInt(value.get().trim());
             // validando ano positivo
-            if(date <= 0) {
-            	Collections.singletonList(new IntegrityMessage(Localization.lang("should be a positive year"), entry, "year"));
+            if (date <= 0) {
+                Collections.singletonList(
+                        new IntegrityMessage(Localization.lang("should be a positive year"), entry, "year"));
             }
             //validando ano futuro
-            if(date > LocalDate.now().getYear()) {
-            	Collections.singletonList(new IntegrityMessage(Localization.lang("shouldn't be on the future"), entry, "year"));
+            if (date > LocalDate.now().getYear()) {
+                Collections.singletonList(
+                        new IntegrityMessage(Localization.lang("shouldn't be on the future"), entry, "year"));
             }
 
             return Collections.emptyList();
@@ -391,8 +391,8 @@ public class IntegrityCheck {
             return results;
         }
     }
-    
-     private static class BibTexKeyChecker implements Checker {
+
+    private static class BibTexKeyChecker implements Checker {
 
         private static final Predicate<String> STARTS_WITH_LETTER = Pattern.compile("([a-z A-Z]) ([^\\s])")
                 .asPredicate();
@@ -415,6 +415,4 @@ public class IntegrityCheck {
             return Collections.emptyList();
         }
     }
-    
-
 }

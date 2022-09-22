@@ -49,6 +49,7 @@ import net.sf.jabref.importer.fileformat.PdfXmpImporter;
 import net.sf.jabref.importer.fileformat.RepecNepImporter;
 import net.sf.jabref.importer.fileformat.RisImporter;
 import net.sf.jabref.importer.fileformat.SilverPlatterImporter;
+import net.sf.jabref.importer.fileformat.CSVImporter;
 import net.sf.jabref.logic.util.strings.StringUtil;
 import net.sf.jabref.model.database.BibDatabases;
 import net.sf.jabref.model.entry.BibEntry;
@@ -71,6 +72,7 @@ public class ImportFormatReader {
     public void resetImportFormats() {
         formats.clear();
 
+        formats.add(new CSVImporter());
         formats.add(new BiblioscapeImporter());
         formats.add(new BibtexImporter());
         formats.add(new BibTeXMLImporter());
