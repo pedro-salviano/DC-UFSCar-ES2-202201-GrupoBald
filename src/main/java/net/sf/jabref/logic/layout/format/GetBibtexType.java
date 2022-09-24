@@ -93,6 +93,6 @@ public class GetBibtexType implements LayoutFormatter {
             return "Unpublished";
         }
         // Default, Miscelaneous
-        return "10";
+        return "Misc";
     }
 }
