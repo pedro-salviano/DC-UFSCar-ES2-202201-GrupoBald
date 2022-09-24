@@ -40,7 +40,8 @@ public class CSVImporter extends ImportFormat {
         List<BibEntry> bibitems = new ArrayList<>();
         BufferedReader in = new BufferedReader(ImportFormatReader.getReaderDefaultEncoding(stream));
 
-        String line = in.readLine();
+        String line = in.readLine(); //Le o cebecalho
+        line = in.readLine(); //descarta o cabecalho
         while (line != null) {
             if (!line.trim().isEmpty()) {
                 String[] fields = line.split(",");
